@@ -1,0 +1,18 @@
+# VM Images
+downloads/*.zip
+downloads/*.utm
+
+# macOS
+.DS_Store
+._*
+
+# Temporary files
+*.tmp
+*.log
+*.swp
+*~
+
+# SSH keys
+*.pem
+*.key
+id_rsa*
