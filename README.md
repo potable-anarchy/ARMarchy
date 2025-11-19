@@ -37,9 +37,10 @@ The display will activate in the UTM window showing Hyprland with waybar.
 
 ## 📚 Documentation
 
+- **[Build VM Guide](docs/BUILD-VM.md)** - Complete automated build instructions ⭐
 - **[Quick Start Guide](docs/QUICKSTART.md)** - Get up and running fast
 - **[UTM Setup Guide](docs/UTM-SETUP-GUIDE.md)** - Configure UTM properly
-- **[Arch Install Guide](docs/arch-install-guide.md)** - Build from scratch
+- **[Arch Install Guide](docs/arch-install-guide.md)** - Manual installation from scratch
 - **[Hyprland Setup Notes](docs/hyprland-setup-notes.md)** - Compositor configuration
 - **[Display Configuration](docs/configure-utm-display.md)** - Fix display issues
 - **[Resize Disk](docs/RESIZE-DISK-INSTRUCTIONS.md)** - Expand VM storage
@@ -47,9 +48,22 @@ The display will activate in the UTM window showing Hyprland with waybar.
 
 ## ⚡ Installation
 
-### Option 1: Pre-built UTM VM (Coming Soon)
+> **Note:** Due to the VM's size (~87GB), pre-built images are not provided. Use our automated build scripts instead (1-2 hours).
 
-Download ready-to-use UTM virtual machine with everything configured.
+### Recommended: Automated Build
+
+```bash
+# 1. Clone this repository
+git clone https://github.com/potable-anarchy/omarchy-arm64-vm.git
+cd omarchy-arm64-vm
+
+# 2. Follow the comprehensive build guide
+open docs/BUILD-VM.md
+```
+
+### Alternative: Pre-built UTM VM
+
+Not currently available due to file size limitations. See build guide above.
 
 ### Option 2: Build from Scripts
 
