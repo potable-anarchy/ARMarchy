@@ -1,6 +1,22 @@
 # VM Images
 downloads/*.zip
 downloads/*.utm
+downloads/*.iso
+
+# Build artifacts
+build/
+dist/
+*.qcow2
+*.img
+*.vmdk
+
+# Installer outputs
+installer/*.pkg
+installer/*.dmg
+installer/*.zip
+
+# UTM VMs (for local testing)
+*.utm/
 
 # macOS
 .DS_Store
@@ -16,3 +32,11 @@ downloads/*.utm
 *.pem
 *.key
 id_rsa*
+
+# Editor directories
+.vscode/
+.idea/
+
+# Cache
+__pycache__/
+*.pyc

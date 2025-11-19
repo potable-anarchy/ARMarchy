@@ -1,151 +1,180 @@
-# Omarchy Linux ARM64 VM for UTM
+# Omarchy ARM64 VM
 
-Setting up Omarchy Linux on ARM64 architecture in UTM with Hyprland window manager.
+Complete [Omarchy Linux](https://github.com/basecamp/omarchy) environment running on ARM64 for Apple Silicon Macs via UTM.
 
-## Project Overview
-
-Omarchy Linux is a beautiful, modern & opinionated Linux distribution by DHH, built on Arch Linux. However, it only provides official x86-64 ISOs. This project aims to run Omarchy on ARM64 (Apple Silicon) by:
-
-1. Starting with Arch Linux ARM as the base system
-2. Bootstrapping Omarchy components on top
-3. Configuring Hyprland window manager for a modern desktop experience
-4. Running everything in UTM with proper ARM64 virtualization
-
-## Current Status
-
-**✅ Completed:**
-- Repository created and initialized
-- Arch Linux ARM VM downloaded (532MB pre-built image from UTM gallery)
-- VM imported and running in UTM
-- Setup scripts created for automated installation
-
-**⚠️ In Progress:**
-- Installing QEMU guest agent for remote control
-- Configuring SSH access to enable automated setup
-
-**🔜 Next Steps:**
-- Complete base system setup (SSH, guest agent, sudo)
-- Bootstrap Omarchy components
-- Install and configure Hyprland
-- Set up GUI environment with proper display support
-- Document the complete installation process
+![Omarchy ARM64 Screenshot](docs/screenshot3.png)
 
 ## Quick Start
 
-### Prerequisites
+```bash
+# SSH into VM
+ssh omarchy@192.168.64.6
+# Password: omarchy
 
-- macOS with Apple Silicon (M1/M2/M3/M4)
-- UTM installed from [https://mac.getutm.app](https://mac.getutm.app)
-- Minimum 4GB RAM available for VM
-- 20GB+ free disk space
+# Start Omarchy environment
+./start-omarchy.sh
+```
 
-### VM Setup
+The display will activate in the UTM window showing Hyprland with waybar.
 
-1. **Import the VM:**
-   ```bash
-   open ~/code/omarchy-arm64-vm/downloads/ArchLinux.utm
-   ```
+## 📦 What's Included
 
-2. **Start the VM in UTM**
+- **OS:** Arch Linux ARM (aarch64)
+- **Kernel:** 6.17.8-1-aarch64-ARCH
+- **Compositor:** Hyprland 0.52.1 with Omarchy configs
+- **Resolution:** 1280x800 via virtio-gpu-pci
+- **Applications:** 100+ packages installed
 
-3. **Initial Setup (in VM console):**
-   
-   Login: `root` / `root`
-   
-   Run these commands to enable remote access:
-   ```bash
-   # Unlock pacman database if needed
-   killall pacman 2>/dev/null || true
-   rm -f /var/lib/pacman/db.lck
-   
-   # Install essential packages
-   pacman -Sy --noconfirm qemu-guest-agent openssh git base-devel sudo vim
-   
-   # Enable services
-   systemctl enable --now qemu-guest-agent
-   systemctl enable --now sshd
-   
-   # Set password
-   echo 'root:omarchy' | chpasswd
-   
-   # Get IP address for SSH
-   ip -4 addr show | grep inet
-   ```
+### Key Features
 
-4. **SSH into VM:**
-   ```bash
-   ssh root@<VM_IP_ADDRESS>
-   # Password: omarchy
-   ```
+✅ Omarchy's modular Hyprland configuration  
+✅ Waybar status bar with Omarchy styling  
+✅ Mako notification daemon  
+✅ Complete CLI toolkit (bat, eza, ripgrep, fzf, etc.)  
+✅ GUI apps (Chromium, Neovim, mpv)  
+✅ 50+ Omarchy utility scripts  
+✅ One-command startup  
 
-5. **Run automated setup:**
-   ```bash
-   # Copy setup script to VM
-   scp ~/code/omarchy-arm64-vm/setup-vm.sh root@<VM_IP_ADDRESS>:/root/
-   
-   # SSH in and run it
-   ssh root@<VM_IP_ADDRESS>
-   chmod +x /root/setup-vm.sh
-   /root/setup-vm.sh
-   ```
+## 📚 Documentation
 
-## Repository Structure
+- **[Quick Start Guide](docs/QUICKSTART.md)** - Get up and running fast
+- **[UTM Setup Guide](docs/UTM-SETUP-GUIDE.md)** - Configure UTM properly
+- **[Arch Install Guide](docs/arch-install-guide.md)** - Build from scratch
+- **[Hyprland Setup Notes](docs/hyprland-setup-notes.md)** - Compositor configuration
+- **[Display Configuration](docs/configure-utm-display.md)** - Fix display issues
+- **[Resize Disk](docs/RESIZE-DISK-INSTRUCTIONS.md)** - Expand VM storage
+- **[Upgrade Strategy](docs/careful-upgrade-strategy.md)** - Safe system updates
+
+## ⚡ Installation
+
+### Option 1: Pre-built UTM VM (Coming Soon)
+
+Download ready-to-use UTM virtual machine with everything configured.
+
+### Option 2: Build from Scripts
+
+```bash
+# Clone repository
+git clone https://github.com/potable-anarchy/omarchy-arm64-vm.git
+cd omarchy-arm64-vm
+
+# Build VM (requires UTM installed)
+./scripts/build-archlinux-vm.sh
+
+# Setup Omarchy inside VM
+./scripts/setup-vm.sh
+```
+
+### Option 3: Manual Installation
+
+Follow the detailed guides in `docs/` to build from scratch.
+
+## 🎹 Keybindings (Omarchy Defaults)
+
+| Key Combo | Action |
+|-----------|--------|
+| `SUPER + RETURN` | Open terminal (foot) |
+| `SUPER + Q` | Close window |
+| `SUPER + M` | Exit Hyprland |
+| `SUPER + F` | Fullscreen |
+| `SUPER + E` | App launcher (wofi) |
+| `SUPER + B` | Web browser (chromium) |
+| `SUPER + N` | Neovim |
+| `SUPER + arrows` | Navigate windows |
+
+## 📁 Project Structure
 
 ```
 omarchy-arm64-vm/
-├── README.md              # This file
-├── PROGRESS.md            # Detailed progress log and notes
-├── downloads/             # Downloaded VM images (gitignored)
-│   └── ArchLinux.utm/    # Arch Linux ARM VM
-├── setup-vm.sh            # Main automated setup script
-├── quick-setup.txt        # Quick reference commands
-├── auto-setup.exp         # Expect script (non-functional - UTM limitation)
-└── setup-via-gui.sh       # Manual setup instructions
+├── docs/              # Documentation
+├── scripts/           # Build and setup scripts
+├── examples/          # Configuration examples
+├── downloads/         # VM images and ISOs (gitignored)
+├── README.md          # This file
+├── PROGRESS.md        # Development history
+├── LICENSE            # MIT License
+└── CONTRIBUTING.md    # Contribution guidelines
 ```
 
-## Architecture Decisions
+## 🏗️ Architecture Notes
 
-### Why Arch Linux ARM?
-- Omarchy is built on Arch Linux, so ARM variant provides the closest base
-- Access to full Arch package repositories and AUR
-- Lightweight and customizable
-- Better package compatibility with Omarchy's components
+This is **not** a standard Omarchy installation - it's an adaptation for ARM64:
 
-### Why UTM?
-- Native ARM64 virtualization on Apple Silicon
-- Better performance than emulation
-- Good GUI and some CLI support
-- Free and open source
+- ❌ Cannot run official Omarchy installer (x86_64 only)
+- ✅ All configurations work perfectly
+- ✅ Most applications available on ARM64
+- ⚠️ Some x86_64-only apps excluded (1Password, Steam, etc.)
 
-### Current Limitations
-- `utmctl attach` command not yet implemented (can't automate console interaction)
-- QEMU guest agent not pre-installed (requires manual initial setup)
-- No official Omarchy ARM64 packages (need to adapt installation)
+### Differences from x86_64 Omarchy
 
-## Resources
+1. **No uwsm session manager** - Apps launched via hyprctl
+2. **No Limine/Btrfs** - Using standard ext4 + boot
+3. **Manual app launch** - startup script instead of autostart
+4. **ARM64 package availability** - Some apps unavailable
 
-- [Omarchy Official Site](https://omarchy.org/)
-- [Omarchy GitHub](https://github.com/basecamp/omarchy)
-- [UTM Documentation](https://docs.getutm.app/)
-- [UTM Gallery - Arch Linux ARM](https://mac.getutm.app/gallery/archlinux-arm)
-- [Arch Linux ARM](https://archlinuxarm.org/)
-- [Hyprland](https://hyprland.org/)
+### GPU Performance
 
-## Credentials
+⚠️ **Important:** UTM uses QEMU's `virtio-gpu-pci` which only supports OpenGL 2.1. Hyprland requires OpenGL 3.0+, resulting in:
+- Laggy rendering on M1/M2 Macs
+- TUI windows may appear empty or glitchy
+- Acceptable performance on M3+ Macs
 
-**Default VM Login:**
-- Username: `root`
-- Password: `root` (changed to `omarchy` after setup)
+For better GPU performance, consider **Parallels Desktop** (commercial) or simpler compositors like Sway.
 
-**After Setup:**
-- Username: `root` or `omarchy`
-- Password: `omarchy`
+## 🛠️ Useful Commands
 
-## Contributing
+```bash
+# Control Hyprland
+export HYPRLAND_INSTANCE_SIGNATURE=$(ls -t /run/user/1001/hypr/ | head -1)
+hyprctl monitors
+hyprctl clients
+hyprctl dispatch exec <app>
 
-This is a personal project for getting Omarchy running on ARM64. Feel free to fork and adapt for your own use.
+# Launch apps
+hyprctl dispatch exec chromium
+hyprctl dispatch exec foot
+hyprctl dispatch exec nvim
+
+# Take screenshot
+grim -g "$(slurp)" screenshot.png
+
+# System info
+fastfetch
+btop
+```
+
+## 🤝 Contributing
+
+Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+### Areas for Contribution
+
+- **Installer Scripts** - Automated VM building
+- **Performance Improvements** - GPU optimization
+- **Documentation** - Setup guides, troubleshooting
+- **Package Updates** - Keep dependencies current
+- **Bug Fixes** - Display issues, app compatibility
+
+## 📋 System Requirements
+
+- **Mac:** Apple Silicon (M1, M2, M3, M4)
+- **macOS:** 12.0+ (Monterey or later)
+- **UTM:** Latest version
+- **RAM:** 4GB+ recommended for VM
+- **Disk:** 20GB+ for VM image
+
+## 🔗 Credits & Resources
+
+- **Omarchy:** [github.com/basecamp/omarchy](https://github.com/basecamp/omarchy) by DHH/37signals
+- **Hyprland:** [hyprland.org](https://hyprland.org)
+- **Arch Linux ARM:** [archlinuxarm.org](https://archlinuxarm.org)
+- **UTM:** [mac.getutm.app](https://mac.getutm.app)
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
-*Last Updated: November 16, 2025*
-*Project Status: Initial Setup Phase*
+**Status:** Production ready ✅  
+**Last Updated:** November 19, 2025

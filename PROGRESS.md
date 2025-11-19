@@ -1,223 +1,585 @@
 # Progress Log - Omarchy ARM64 VM Setup
 
-## Session: November 16, 2025
+## Session: November 16-17, 2025 - OMARCHY ON ARM64 IN PROGRESS! 🚀
+
+### Current Status (as of November 17, 01:37 PST)
+✅ **Hyprland fully operational on ARM64!**  
+✅ **Omarchy configurations fully integrated!**  
+🔄 **Application stack installation: 577/~700 packages** (in progress)  
+✅ Display output active at 1280x800 via virtio-gpu-pci  
+✅ Omarchy's waybar + mako notifications running  
+✅ **Nerd Fonts fixed** - Cascadia Code Nerd Font installed, waybar icons displaying  
+✅ 70+ applications installed (CLI + GUI)  
+✅ Neovim, Chromium, mpv, and all core tools  
+✅ Omarchy utilities in PATH  
+✅ One-command startup script  
+✅ Window management with Omarchy keybindings  
+✅ Modular config structure from Omarchy  
 
 ### Objective
-Get Omarchy Linux running in an ARM64 VM in UTM with Hyprland working.
+Get FULL Omarchy Linux running in an ARM64 VM in UTM with complete functionality. **IN PROGRESS!**
+
+### Latest Session Goals
+- Install ALL Omarchy applications for complete functionality
+- Fix waybar icon display issues (✅ COMPLETED - fonts installed)
+- Enable all system services (bluetooth, NetworkManager, etc.)
 
 ---
 
-## Progress Summary
+## ✅ MAJOR BREAKTHROUGH - Working Arch Linux ARM VM!
 
-### Phase 1: Repository & VM Setup ✅
-
-**Completed:**
-1. Created GitHub repository: `potable-anarchy/omarchy-arm64-vm` (private)
-2. Downloaded Arch Linux ARM pre-built VM from UTM gallery (532MB)
-3. Extracted and imported VM into UTM
-4. VM successfully boots and runs
-
-**Key Findings:**
-- Omarchy does not provide official ARM64 ISOs
-- Must bootstrap Omarchy on top of Arch Linux ARM
-- UTM pre-built image uses console-only display (need to add GUI support for Hyprland)
-
-### Phase 2: Automation Attempts ⚠️
-
-**Attempted Methods:**
-
-1. **UTM CLI (`utmctl`):**
-   - ✅ Can list, start, stop VMs
-   - ✅ Has `exec` and `file` commands for remote control
-   - ❌ Requires QEMU guest agent (not pre-installed)
-   - ❌ `attach` command not yet implemented
-   - ❌ Can't get IP address without guest agent
-
-2. **Expect Script Automation:**
-   - Created `auto-setup.exp` to automate console interaction
-   - ❌ Failed: `utmctl attach` returns "not implemented yet"
-
-3. **AppleScript/GUI Automation:**
-   - Considered but not pursued (fragile, non-portable)
-
-**Conclusion:**
-Manual initial setup required to install QEMU guest agent and SSH, then automation can take over.
-
-### Phase 3: Setup Scripts Created ✅
-
-**Scripts Created:**
-
-1. **`setup-vm.sh`** - Main automated setup script
-   - System updates
-   - Installs essential packages (SSH, git, base-devel, sudo, vim)
-   - Configures networking (systemd-networkd)
-   - Creates `omarchy` user with sudo access
-   - Installs yay (AUR helper)
-   - Installs Hyprland and dependencies
-   
-2. **`quick-setup.txt`** - Quick reference commands for manual setup
-   - Unlocks pacman database
-   - Installs guest agent and SSH
-   - Sets up remote access
-
-3. **`auto-setup.exp`** - Expect script (non-functional)
-   - Preserved for reference
-   - May work in future UTM versions
-
-4. **`setup-via-gui.sh`** - Displays manual setup instructions
-   - Helpful for first-time setup
+### Summary
+After multiple attempts with old pre-built VMs that had library dependency issues, we successfully upgraded a fresh VM to a fully working, modern Arch Linux ARM system.
 
 ---
 
-## Current State
+## Complete Progress
 
-### VM Status
+### Phase 1: Initial Attempts ❌
+
+**Problem:** Pre-built UTM Gallery VM (from 2022) had severe library dependency issues
+- glibc 2.35 (needed 2.36-2.38)
+- Old OpenSSL 1.1 (needed OpenSSL 3.x)
+- Any `pacman -Sy` operation created partial upgrades that broke systemd and SSH
+
+**Failures:**
+1. Tried installing SSH first → dependency hell
+2. Tried manual library extraction → still incompatible
+3. Attempted partial upgrade → kernel panic on reboot
+
+### Phase 2: The Successful Strategy ✅
+
+**Key Insight:** Do a full atomic upgrade of ALL packages before rebooting
+
+**Winning Approach:**
+1. Import completely fresh pre-built VM
+2. Login as `alarm` (not root)
+3. Run ONE comprehensive upgrade command that updates everything atomically
+4. Reboot into the upgraded system
+
+**Command Used:**
+```bash
+rm -f /var/lib/pacman/db.lck && pacman -Syu --noconfirm && \
+pacman -S --noconfirm openssh qemu-guest-agent base-devel git sudo vim && \
+useradd -m -G wheel -s /bin/bash omarchy && \
+echo 'omarchy:omarchy' | chpasswd && \
+echo 'root:omarchy' | chpasswd && \
+sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers && \
+echo -e "\nPermitRootLogin yes\nPasswordAuthentication yes" >> /etc/ssh/sshd_config
+```
+
+### Phase 3: Current System Status ✅
+
+**VM Configuration:**
 - **VM Name:** ArchLinux
 - **UUID:** 2F2C4095-EC5B-49CD-A654-FE17D7EC7CAA
-- **Status:** Running in UTM
-- **Login:** root/root
-- **Network:** Shared network (DHCP)
-- **Display:** Console only (serial terminal)
+- **Status:** ✅ Running and fully operational
+- **IP Address:** 192.168.64.6
+- **SSH Access:** ✅ Working perfectly
 
-### Blockers
-1. **Pacman database locked** - Initial run showed lock error
-   - Solution: `rm -f /var/lib/pacman/db.lck`
-   
-2. **No remote access yet** - Need to manually install SSH and guest agent
-   - Waiting for user to run commands in console
+**System Information:**
+```
+Kernel: Linux 6.17.8-1-aarch64-ARCH
+OS: Arch Linux ARM (November 15, 2025 build)
+Architecture: aarch64 (ARM64 native)
+Init System: systemd (fully functional)
+```
 
-3. **No GUI** - Need to configure display for Hyprland
-   - Will require UTM VM settings adjustment
-   - May need to switch from console to GPU-accelerated display
+**Installed and Configured:**
+- ✅ SSH server (openssh) - password auth enabled
+- ✅ QEMU guest agent
+- ✅ Base development tools (base-devel)
+- ✅ Git, sudo, vim
+- ✅ Yay (AUR helper) v12.5.2
+- ✅ Go compiler (for AUR builds)
+
+**User Accounts:**
+- `root` / password: `omarchy`
+- `alarm` / password: `alarm` (default user)
+- `omarchy` / password: `omarchy` (created, wheel group, passwordless sudo)
+
+**Network:**
+- Shared network mode (UTM default)
+- DHCP assigned: 192.168.64.6
+- Internet access: ✅ Working
+- SSH accessible from host: ✅ Working
+
+---
+
+## Achievements
+
+### ✅ Completed Tasks
+
+1. **VM Setup & Import**
+   - Downloaded pre-built Arch ARM VM (532MB)
+   - Automated deletion and re-import of fresh VMs via utmctl
+   - Successfully started VM programmatically
+
+2. **System Upgrade**
+   - Upgraded from 2022 packages to November 2025 (latest)
+   - Resolved glibc 2.35 → 2.38 upgrade
+   - Resolved OpenSSL 1.1 → 3.x transition
+   - System boots cleanly after full upgrade
+
+3. **Remote Access**
+   - SSH server installed and configured
+   - Password authentication enabled
+   - Passwordless sudo configured for omarchy user
+   - Automated SSH interactions via Expect scripts
+
+4. **Development Environment**
+   - Git installed
+   - Base development tools (gcc, make, etc.)
+   - Yay AUR helper installed and working
+   - Ready for building AUR packages
+
+5. **Automation**
+   - Created utmctl wrapper scripts
+   - Automated VM lifecycle (delete, import, start)
+   - Automated SSH-based package installation
+   - Created expect scripts for password automation
 
 ---
 
 ## Next Steps
 
-### Immediate (Waiting on User)
-1. Run setup commands in VM console to enable SSH
-2. Get VM IP address
-3. SSH into VM for remote automation
+### Immediate Tasks
 
-### After SSH Access
-1. Update system: `pacman -Syu`
-2. Install base packages
-3. Configure user accounts
-4. Install yay (AUR helper)
+1. **Install Hyprland** (pending)
+   - Install via yay from AUR
+   - Required packages: hyprland, waybar, kitty/alacritty, wofi
+   - Dependencies will be handled by yay
 
-### Omarchy Bootstrap
-1. Research Omarchy installation scripts
-2. Adapt for ARM64 architecture
-3. Install Omarchy core components:
-   - Desktop environment preferences
-   - Custom configurations
-   - Theming and styling
-   - Application suite
+2. **Configure UTM Display** (pending)
+   - Current: Console-only (serial terminal)
+   - Need: GPU-accelerated display for Hyprland
+   - Change UTM settings:
+     - Display: virtio-gpu-pci
+     - Enable OpenGL/GPU acceleration
+     - Set resolution (1920x1080 recommended)
 
-### Hyprland Setup
-1. Install Hyprland from AUR
-2. Configure VM display settings in UTM:
-   - Enable GPU acceleration
-   - Add display device (virtio-gpu or similar)
-   - Configure resolution
-3. Install Wayland dependencies
-4. Configure Hyprland:
-   - Create config files
+3. **Hyprland Configuration** (pending)
+   - Create ~/.config/hypr/hyprland.conf
    - Set up keybindings
-   - Install terminal emulator (likely Kitty or Alacritty)
-   - Configure status bar (likely Waybar)
-5. Test GUI launch
+   - Configure terminal, launcher, status bar
+   - Test Wayland/Hyprland launch
 
-### Documentation
-1. Document successful Omarchy bootstrap process
-2. Create step-by-step guide
-3. Document Hyprland configuration
-4. Add screenshots/recordings
-5. Update README with complete instructions
+### Omarchy Bootstrap (Future)
 
----
-
-## Technical Challenges
-
-### Challenge 1: No Official ARM64 Support
-**Problem:** Omarchy only provides x86-64 ISOs
-
-**Solutions Considered:**
-- ❌ Emulation (too slow)
-- ✅ Bootstrap on Arch Linux ARM (chosen approach)
-- ⚠️ Wait for official support (unknown timeline)
-
-**Implementation:**
-Start with Arch Linux ARM, then install Omarchy's components manually.
-
-### Challenge 2: UTM Automation Limitations
-**Problem:** Can't fully automate VM setup without guest agent
-
-**Solutions Considered:**
-- ❌ Expect scripts (attach not implemented)
-- ❌ AppleScript GUI automation (fragile)
-- ✅ Hybrid approach: manual bootstrap, then SSH automation
-
-**Implementation:**
-One-time manual setup to enable remote access, then full automation.
-
-### Challenge 3: Display Configuration for Hyprland
-**Problem:** Pre-built VM only has console display
-
-**Solutions To Try:**
-1. Add virtio-gpu device in UTM settings
-2. Install mesa and GPU drivers
-3. Configure Wayland/Hyprland to use virtual GPU
-4. May need to use VNC or SPICE for remote display
-
-**Status:** Not yet attempted
+1. Research Omarchy installation approach
+2. Identify which Omarchy components work on ARM64
+3. Install Omarchy theming and configurations
+4. Test compatibility with Hyprland
+5. Document any ARM64-specific adjustments needed
 
 ---
 
-## Resources Discovered
+## Technical Solutions
 
-### UTM Documentation
-- [UTM Gallery - Arch Linux ARM](https://mac.getutm.app/gallery/archlinux-arm)
-- [UTM Port Forwarding Guide](https://docs.getutm.app/settings-qemu/devices/network/port-forwarding/)
+### Challenge 1: Library Dependency Hell
+**Solution:** Full atomic upgrade (`pacman -Syu`) before any other operations
 
-### Arch Linux ARM
-- Main site: [archlinuxarm.org](https://archlinuxarm.org/)
-- Package repositories compatible with Arch Linux
-- AUR packages may need compilation for ARM64
+### Challenge 2: SSH Access
+**Solution:** Install SSH and configure password auth in same session as upgrade, before reboot
 
-### Omarchy Resources
-- [Official Site](https://omarchy.org/)
-- [GitHub Repository](https://github.com/basecamp/omarchy)
-- [Omarchy Manual](https://learn.omacom.io/2/the-omarchy-manual)
-- [GitHub Discussion - M* Mac VMs](https://github.com/basecamp/omarchy/discussions/452)
+### Challenge 3: Automation Without Console Access
+**Solution:** Hybrid approach - manual initial commands, then full SSH automation
 
-### Hyprland
-- [Official Site](https://hyprland.org/)
-- Available in AUR
-- Requires Wayland, wlroots, and various dependencies
+### Challenge 4: Sudo Password Prompts
+**Solution:** Created `/etc/sudoers.d/wheel` with NOPASSWD for wheel group
+
+---
+
+## Scripts & Tools Created
+
+1. **`careful-upgrade-strategy.md`** - Documentation of successful upgrade approach
+2. **`one-shot-upgrade.sh`** - One-command upgrade script
+3. **`safe-initial-setup.txt`** - Initial setup commands  
+4. **`UTM-SETUP-GUIDE.md`** - Guide for creating VMs from Archboot ISO (backup plan)
+5. **`arch-install-guide.md`** - Complete Arch installation guide (if needed)
+6. **Expect scripts** - Various automation scripts for SSH interactions
+7. **Downloaded Archboot ISO** - archboot-2025.11.16 (backup, not needed after success)
+
+---
+
+## Resources Used
+
+### Official Documentation
+- [Arch Linux ARM](https://archlinuxarm.org/)
+- [UTM Documentation](https://docs.getutm.app/)
+- [Hyprland Wiki](https://wiki.hyprland.org/)
+
+### Community Resources
+- [Archboot ISOs](https://archboot.com/) - ARM64 bootable ISOs
+- [UTM Gallery](https://mac.getutm.app/gallery/archlinux-arm) - Pre-built VMs
+- [Yay AUR Helper](https://github.com/Jguer/yay)
+
+### Research Articles
+- GitHub Gist: Arch ARM M1 VM build guide
+- Blog posts on running Arch ARM in UTM
+- Hyprland on ARM64 compatibility notes
+
+---
+
+## Latest Development: Hyprland Backend Fix
+
+### Problem: Backend Initialization Failure
+Hyprland crashed with `CBackend::create() failed!` even with GPU working and software rendering attempted.
+
+**Root Cause:** libseat could not access seatd service
+```
+[ERR] [AQ] [libseat] Could not connect to socket /run/seatd.sock: No such file or directory
+[ERR] [AQ] libseat: failed to open a seat
+[CRITICAL] Cannot open backend: no allocator available
+```
+
+### Solution: Install and Enable seatd
+```bash
+sudo pacman -S --noconfirm seatd
+sudo systemctl enable --now seatd
+sudo usermod -aG seat omarchy
+```
+
+**Verification:**
+- Socket exists: `/run/seatd.sock` with proper permissions
+- Service running: `systemctl status seatd`
+- User in seat group: `groups` shows `omarchy seat wheel`
+
+### Solution Applied
+All fixes implemented successfully - Hyprland now running with full display output.
+
+---
+
+## Phase 4: Final Configuration and Success ✅
+
+### Terminal Application Fix
+**Problem:** kitty terminal crashed with EGL/OpenGL errors in VM environment
+```
+[glfw error 65543]: EGL: Failed to create context: Arguments are inconsistent
+Segmentation fault (core dumped)
+```
+
+**Solution:** Installed `foot` terminal emulator (lightweight, no OpenGL dependency)
+```bash
+yay -S --noconfirm foot
+hyprctl dispatch exec foot
+```
+
+**Result:** Terminal launches successfully, full window management working
+
+### Final Working Configuration
+
+**Hyprland Display:**
+- Monitor: Virtual-1 (Red Hat Inc. QEMU Monitor)
+- Resolution: 1280x800@74.99Hz
+- DRM Backend: Working via virtio-gpu-pci
+- Framebuffer: /dev/fb1 (virtio_gpudrmfb)
+
+**Running Services:**
+- Hyprland compositor (PID varies)
+- waybar status bar
+- seatd seat management daemon
+- foot terminal emulator
+
+**User Permissions:**
+- Groups: omarchy, wheel, input, video, seat
+- seatd socket: 777 permissions (world-accessible)
+- DRI devices: Accessible via video group
+
+**Keybindings:**
+- `SUPER + RETURN`: Launch foot terminal
+- `SUPER + Q`: Close window
+- `SUPER + M`: Exit Hyprland
+- `SUPER + E`: Launch wofi (app launcher)
+- `SUPER + F`: Fullscreen
+- `SUPER + arrows`: Navigate windows
+
+### How to Start Hyprland
+
+**From SSH:**
+```bash
+ssh omarchy@192.168.64.6
+nohup Hyprland > /tmp/hyprland.out 2>&1 &
+```
+
+**From UTM Console:**
+1. Login as `omarchy` / `omarchy`
+2. Run `Hyprland`
+3. Display activates automatically
+
+---
+
+## Phase 5: Omarchy Integration ✅
+
+### Challenge: Omarchy Requires x86_64
+Omarchy's official installer (`boot.sh`) checks for x86_64 architecture, Limine bootloader, and Btrfs filesystem - none of which we have on ARM64 with ext4.
+
+### Solution: Manual Configuration Adaptation
+Instead of running the full installer, we extracted and adapted Omarchy's configuration files:
+
+**Steps:**
+1. Cloned Omarchy repository: `git clone https://github.com/basecamp/omarchy.git`
+2. Ran `boot.sh` which cloned to `~/.local/share/omarchy/`
+3. Copied Omarchy's Hyprland configs: `cp -r ~/.local/share/omarchy/default/hypr/* ~/.config/hypr/`
+4. Created main `hyprland.conf` that sources Omarchy's modular configs
+5. Simplified `autostart.conf` to remove uwsm dependencies
+
+**Omarchy Config Structure:**
+```
+~/.config/hypr/
+├── hyprland.conf          # Main entry point (custom)
+├── envs.conf              # Environment variables (Omarchy)
+├── input.conf             # Input settings (Omarchy)
+├── looknfeel.conf         # Visual styling (Omarchy)
+├── windows.conf           # Window rules (Omarchy)
+├── bindings.conf          # Keybindings (Omarchy)
+├── apps.conf              # App-specific tweaks (Omarchy)
+└── autostart.conf         # Startup apps (simplified)
+```
+
+**Working Configuration:**
+- Hyprland with Omarchy's look and feel
+- Waybar status bar (launched via `hyprctl dispatch exec waybar`)
+- Foot terminal emulator
+- Omarchy keybindings and window rules
+- Modular config system
+
+**Limitations on ARM64:**
+- ❌ Cannot run full Omarchy installer (x86_64 only)
+- ❌ Some apps unavailable on ARM64 (check AUR)
+- ❌ uwsm (session manager) not used - manual app launch
+- ✅ Configurations work perfectly
+- ✅ Visual theme applies correctly
+- ✅ Keybindings functional
+
+### Current Setup
+```bash
+# Start Hyprland with Omarchy configs
+ssh omarchy@192.168.64.6
+nohup Hyprland > /tmp/hyprland-omarchy.log 2>&1 &
+
+# Launch waybar
+export HYPRLAND_INSTANCE_SIGNATURE=$(ls -t /run/user/1001/hypr/ | head -1)
+hyprctl dispatch exec waybar
+
+# Launch terminal
+hyprctl dispatch exec foot
+```
+
+---
+
+## Phase 6: Application Stack Installation ✅
+
+### Installed Applications
+
+**CLI Utilities:**
+- `bat` - Better cat with syntax highlighting
+- `eza` - Modern ls replacement
+- `ripgrep` - Fast grep alternative
+- `fd` - Fast find alternative
+- `fzf` - Fuzzy finder
+- `zoxide` - Smart cd replacement
+- `starship` - Cross-shell prompt
+- `btop` - System monitor
+- `dust` - Disk usage analyzer
+- `lazygit` - Git TUI
+- `fastfetch` - System info
+- `tree-sitter-cli` - Parser generator
+
+**Wayland/Hyprland Tools:**
+- `grim` - Screenshot utility
+- `slurp` - Region selector
+- `wl-clipboard` - Clipboard manager
+- `hypridle` - Idle daemon
+- `hyprlock` - Screen locker
+- `hyprpicker` - Color picker
+- `mako` - Notification daemon
+- `imv` - Image viewer
+- `mpv` - Video player
+
+**GUI Applications:**
+- `chromium` - Web browser
+- `neovim` - Text editor
+- `foot` - Terminal emulator
+
+**Total Packages:** 100+ including dependencies
+
+### Omarchy Utilities Configured
+
+Added `~/.local/share/omarchy/bin/` to PATH with 50+ utility scripts:
+- `omarchy-cmd-screenshot` - Screenshot tool
+- `omarchy-cmd-screenrecord` - Screen recording
+- `omarchy-cmd-audio-switch` - Audio device switcher
+- `omarchy-font-set` - Font management
+- `omarchy-hyprland-workspace-toggle-gaps` - Workspace utilities
+- And many more...
+
+### Startup Script Created
+
+**File:** `~/start-omarchy.sh`
+
+Simple one-command startup:
+```bash
+./start-omarchy.sh
+```
+
+Automatically:
+1. Kills any existing Hyprland session
+2. Launches Hyprland with Omarchy configs
+3. Starts waybar status bar
+4. Starts mako notification daemon
+5. Activates display output
 
 ---
 
 ## Lessons Learned
 
-1. **Always check architecture support** - Could have saved time knowing Omarchy is x86-64 only
-2. **UTM CLI has limitations** - Guest agent is essential for automation
-3. **Pre-built VMs are minimal** - Need manual configuration for specific use cases
-4. **Hybrid automation works best** - Manual bootstrap + automated setup
+1. **Never run `pacman -Sy` without `-u`** - Partial upgrades break systems
+2. **Atomic upgrades are critical** - Upgrade everything at once, not piecemeal
+3. **Pre-built VMs age quickly** - 2022 VM had 3-year-old libraries
+4. **Test before rebooting** - Install and configure everything while system still runs
+5. **Automation saves time** - utmctl + expect scripts dramatically speed up iteration
+6. **Have a backup plan** - We had Archboot ISO ready (didn't need it, but good to have)
+7. **Wayland compositors need seatd** - libseat requires seatd or logind for seat management
 
 ---
 
 ## Time Tracking
 
+### Session 1 (Initial Attempts)
 - Repository setup: ~5 minutes
 - VM download and import: ~10 minutes
-- Automation research and attempts: ~20 minutes
-- Script creation: ~15 minutes
-- Documentation: ~10 minutes
+- Failed upgrade attempts: ~90 minutes
+- Research and troubleshooting: ~45 minutes
 
-**Total:** ~60 minutes
+### Session 2 (Successful Approach)
+- Fresh VM import and upgrade: ~20 minutes
+- SSH setup and testing: ~10 minutes
+- Yay installation: ~15 minutes
+- Documentation: ~20 minutes
+
+**Total Time:** ~215 minutes (3.6 hours)
 
 ---
 
-*Last Updated: November 16, 2025 14:48 PST*
-*Next Update: After SSH access is established*
+## System Access Info
+
+**SSH Connection:**
+```bash
+ssh omarchy@192.168.64.6
+# Password: omarchy
+```
+
+**VM Console:**
+- Login as: `alarm` or `omarchy`
+- Passwords: `alarm` / `omarchy`
+
+**Root Access:**
+```bash
+ssh root@192.168.64.6
+# Password: omarchy
+```
+
+Or from omarchy user:
+```bash
+sudo su -
+# No password required (passwordless sudo)
+```
+
+---
+
+*Last Updated: November 16, 2025 17:20 PST*
+*Status: ✅ Base system fully operational, ready for Hyprland installation*
+*Next Session: Install and configure Hyprland + GPU acceleration*
+
+---
+
+## Phase 7: Full Application Stack & Font Fixes ✅🔄
+
+### Waybar Icon Fix (✅ COMPLETED)
+**Problem:** Waybar icons not displaying - showing empty boxes instead of symbols
+
+**Root Cause:** Missing Nerd Fonts
+- Waybar configured to use 'CaskaydiaMono Nerd Font'
+- Only symbol fonts were installed, not the full font families
+
+**Solution:**
+```bash
+yay -S --noconfirm \
+    ttf-cascadia-code-nerd \
+    ttf-jetbrains-mono-nerd \
+    ttf-nerd-fonts-symbols \
+    ttf-nerd-fonts-symbols-mono \
+    ttf-nerd-fonts-symbols-common
+fc-cache -fv
+```
+
+**Verification:**
+```bash
+# Restart waybar via Hyprland
+export HYPRLAND_INSTANCE_SIGNATURE=$(ls -t /run/user/1001/hypr/ | head -1)
+hyprctl dispatch exec "pkill waybar; waybar"
+```
+
+**Result:** ✅ Icons now display correctly in waybar
+
+### Comprehensive Package Installation (🔄 IN PROGRESS)
+
+**Goal:** Install ALL applications referenced in Omarchy configuration for full functionality
+
+**Packages Installed (Current: 577 total):**
+
+**Core GUI Stack:**
+- Hyprland compositor + xdg-desktop-portal
+- Waybar (status bar)
+- Mako (notifications)
+- Foot, Kitty terminals
+- Wofi launcher
+
+**Essential Applications:**
+- Thunar file manager
+- Gnome Calculator
+- Chromium browser
+- Neovim editor
+
+**Currently Installing:**
+- Walker launcher (building from AUR - Rust compilation)
+- Rofi-wayland
+- Firefox browser
+- Pavucontrol (audio control)
+- Blueman (Bluetooth manager)
+- Network-manager-applet
+
+**Installation Strategy:**
+Created comprehensive installation scripts to install ~200 additional packages:
+- Display tools (grim, slurp, hyprpicker, swaylock, etc.)
+- Multiple launchers (walker, rofi, fuzzel)
+- Multiple terminals (alacritty, wezterm, kitty)
+- File managers (thunar, nautilus, nemo)
+- Development tools (VSCode, Helix, Docker)
+- Media apps (VLC, mpv, OBS)
+- Themes and icons
+- All Nerd Fonts
+
+**Challenges:**
+- Some AUR packages timing out during build
+- Walker-git requires full Rust compilation (~5-10 minutes)
+- Large package downloads on VM network
+- Process management via SSH (buffering issues with logs)
+
+**Next Steps:**
+1. Wait for current walker/firefox/rofi installation to complete
+2. Install remaining packages in smaller batches
+3. Enable system services (bluetooth, NetworkManager, docker)
+4. Verify all Omarchy keybindings work with installed apps
+5. Test full Omarchy workflow
+
+**Package Count Progress:**
+- Session start: 501 packages
+- After initial fixes: 527 packages (+26)
+- After Thunar/Calculator: 552 packages (+51)
+- Current: 577 packages (+76)
+- Target: ~700 packages (all Omarchy dependencies)
+
+---
+

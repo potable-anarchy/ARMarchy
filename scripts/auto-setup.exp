@@ -1,0 +1,56 @@
+#!/usr/bin/expect -f
+# Automated Arch Linux ARM VM setup via serial console
+
+set timeout 300
+log_user 1
+
+# Start utmctl attach
+spawn /Applications/UTM.app/Contents/MacOS/utmctl attach "ArchLinux"
+
+# Wait for login prompt
+expect {
+    "login:" { }
+    timeout { puts "Timeout waiting for login"; exit 1 }
+}
+
+# Login as root
+send "root\r"
+expect "Password:"
+send "root\r"
+
+# Wait for shell prompt
+expect "#"
+
+# Install QEMU guest agent first for easier management
+send "pacman -Sy --noconfirm qemu-guest-agent\r"
+expect "#"
+
+# Enable and start guest agent
+send "systemctl enable qemu-guest-agent\r"
+expect "#"
+send "systemctl start qemu-guest-agent\r"
+expect "#"
+
+# Install SSH
+send "pacman -S --noconfirm openssh\r"
+expect "#"
+
+# Enable and start SSH
+send "systemctl enable sshd\r"
+expect "#"
+send "systemctl start sshd\r"
+expect "#"
+
+# Change root password to something known
+send "echo 'root:omarchy' | chpasswd\r"
+expect "#"
+
+# Get IP address
+send "ip -4 addr show | grep inet\r"
+expect "#"
+
+# Keep session open
+send "echo 'Setup complete - you can now SSH in'\r"
+expect "#"
+
+interact

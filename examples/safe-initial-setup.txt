@@ -1,0 +1,21 @@
+# Safe Initial Setup Commands
+# Run these in the VM console after fresh import
+# This avoids the OpenSSL library conflict
+
+# Step 1: Unlock pacman if needed
+killall pacman 2>/dev/null || true
+rm -f /var/lib/pacman/db.lck
+
+# Step 2: Install ONLY essential packages (no upgrades yet!)
+# We'll upgrade later via SSH in a controlled manner
+pacman -Sy --noconfirm openssh qemu-guest-agent
+
+# Step 3: Enable services
+systemctl enable --now qemu-guest-agent
+systemctl enable --now sshd
+
+# Step 4: Set root password
+echo 'root:omarchy' | chpasswd
+
+# Step 5: Get IP address (write this down!)
+ip -4 addr show enp0s1 | grep inet

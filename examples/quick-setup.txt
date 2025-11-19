@@ -1,0 +1,17 @@
+# Wait for any running pacman processes to finish
+killall pacman 2>/dev/null || true
+rm -f /var/lib/pacman/db.lck
+
+# Now run the setup
+pacman -Sy --noconfirm qemu-guest-agent openssh git base-devel sudo vim
+
+# Enable services
+systemctl enable --now qemu-guest-agent
+systemctl enable --now sshd
+
+# Change password
+echo 'root:omarchy' | chpasswd
+
+# Get IP address
+ip -4 addr show | grep inet
+
