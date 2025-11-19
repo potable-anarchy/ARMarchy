@@ -48,22 +48,42 @@ The display will activate in the UTM window showing Hyprland with waybar.
 
 ## ⚡ Installation
 
-> **Note:** Due to the VM's size (~87GB), pre-built images are not provided. Use our automated build scripts instead (1-2 hours).
+### Option 1: One-Command Installer ⭐
 
-### Recommended: Automated Build
+The fastest way to get started:
 
 ```bash
-# 1. Clone this repository
+curl -O https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/installer/install-omarchy-vm.sh
+chmod +x install-omarchy-vm.sh
+./install-omarchy-vm.sh
+```
+
+**What it does:**
+- ✅ Checks system requirements
+- ✅ Downloads Arch Linux ARM ISO
+- ✅ Creates optimized UTM VM
+- ✅ Provides next steps for completion
+
+**Time:** 5-10 minutes for VM creation, then 1-2 hours for OS installation
+
+See [Installer Documentation](installer/README.md) for details.
+
+### Option 2: Manual Build
+
+For complete control over the process:
+
+```bash
+# Clone this repository
 git clone https://github.com/potable-anarchy/omarchy-arm64-vm.git
 cd omarchy-arm64-vm
 
-# 2. Follow the comprehensive build guide
+# Follow the comprehensive build guide
 open docs/BUILD-VM.md
 ```
 
-### Alternative: Pre-built UTM VM
+### Option 3: Pre-built VM
 
-Not currently available due to file size limitations. See build guide above.
+Not available due to size (~87GB exceeds GitHub limits). Use installer instead!
 
 ### Option 2: Build from Scripts
 
