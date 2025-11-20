@@ -54,7 +54,7 @@ Download the ready-to-use VM via BitTorrent (13GB):
 
 **Magnet Link:**
 ```
-magnet:?xt=urn:btih:73bc425e28577553862611adcb558625874f8c98&dn=omarchy-arm64-vm-v1.0.0&tr=udp://tracker.opentrackr.org:1337/announce
+magnet:?xt=urn:btih:b8edadd5b6293ee2e72194cd9d4ff008d5a90b2f&dn=omarchy-arm64-vm-v1.0.0&tr=udp://tracker.opentrackr.org:1337/announce
 ```
 
 Or download the [.torrent file](omarchy-arm64-vm-v1.0.0.torrent)

@@ -9,7 +9,7 @@ The prebuilt Omarchy ARM64 VM is available as a BitTorrent download.
 Click this magnet link or paste it into your torrent client:
 
 ```
-magnet:?xt=urn:btih:73bc425e28577553862611adcb558625874f8c98&dn=omarchy-arm64-vm-v1.0.0&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://open.tracker.cl:1337/announce&tr=udp://tracker.torrent.eu.org:451/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://tracker.moeking.me:6969/announce&tr=udp://opentracker.i2p.rocks:6969/announce
+magnet:?xt=urn:btih:b8edadd5b6293ee2e72194cd9d4ff008d5a90b2f&dn=omarchy-arm64-vm-v1.0.0&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://open.tracker.cl:1337/announce&tr=udp://tracker.torrent.eu.org:451/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://tracker.moeking.me:6969/announce&tr=udp://opentracker.i2p.rocks:6969/announce
 ```
 
 ### Option 2: Torrent File
@@ -24,7 +24,7 @@ Download the `.torrent` file and open it with your torrent client:
 - **Format:** UTM bundle (.utm)
 - **Arch:** ARM64 (Apple Silicon only)
 - **OS:** Arch Linux ARM with Hyprland + Omarchy configs
-- **Hash:** `73bc425e28577553862611adcb558625874f8c98`
+- **Hash:** `b8edadd5b6293ee2e72194cd9d4ff008d5a90b2f`
 
 ## Recommended Torrent Clients
 
@@ -52,11 +52,11 @@ brew install --cask qbittorrent
 3. **Wait for download to complete** (13GB download)
 
 4. **Find the downloaded files:**
-   - Default location: `~/Downloads/ArchLinux.utm/`
+   - Default location: `~/Downloads/omarchy-arm64-vm-v1.0.0.utm/`
 
 5. **Open in UTM:**
    ```bash
-   open ~/Downloads/ArchLinux.utm
+   open ~/Downloads/omarchy-arm64-vm-v1.0.0.utm
    ```
 
 ## After Download
@@ -80,7 +80,7 @@ Check the info hash matches:
 
 ```bash
 transmission-show ~/Downloads/omarchy-arm64-vm-v1.0.0.torrent | grep Hash
-# Should show: Hash v1: 73bc425e28577553862611adcb558625874f8c98
+# Should show: Hash v1: b8edadd5b6293ee2e72194cd9d4ff008d5a90b2f
 ```
 
 ## Seeding (Optional but Appreciated!)
@@ -107,7 +107,7 @@ The initial seeding is happening. Please be patient or:
 
 ### VM won't import to UTM
 
-1. Ensure you downloaded the complete `ArchLinux.utm` folder
+1. Ensure you downloaded the complete `omarchy-arm64-vm-v1.0.0.utm` folder
 2. Check that UTM is installed
 3. Try double-clicking the `.utm` folder
 
