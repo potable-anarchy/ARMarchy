@@ -48,9 +48,27 @@ The display will activate in the UTM window showing Hyprland with waybar.
 
 ## ⚡ Installation
 
-### Option 1: One-Command Installer ⭐
+### Option 1: Prebuilt VM (Torrent) 🆕
 
-The fastest way to get started:
+Download the ready-to-use VM via BitTorrent (13GB):
+
+**Magnet Link:**
+```
+magnet:?xt=urn:btih:73bc425e28577553862611adcb558625874f8c98&dn=omarchy-arm64-vm-v1.0.0&tr=udp://tracker.opentrackr.org:1337/announce
+```
+
+Or download the [.torrent file](omarchy-arm64-vm-v1.0.0.torrent)
+
+**What you get:**
+- ✅ Complete Omarchy environment ready to use
+- ✅ No installation or building required
+- ✅ Just download, open in UTM, and start!
+
+See **[Torrent Download Guide](TORRENT-DOWNLOAD.md)** for detailed instructions.
+
+### Option 2: One-Command Installer
+
+Build your own VM automatically:
 
 ```bash
 curl -O https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/installer/install-omarchy-vm.sh
@@ -58,17 +76,11 @@ chmod +x install-omarchy-vm.sh
 ./install-omarchy-vm.sh
 ```
 
-**What it does:**
-- ✅ Checks system requirements
-- ✅ Downloads Arch Linux ARM ISO
-- ✅ Creates optimized UTM VM
-- ✅ Provides next steps for completion
-
 **Time:** 5-10 minutes for VM creation, then 1-2 hours for OS installation
 
 See [Installer Documentation](installer/README.md) for details.
 
-### Option 2: Manual Build
+### Option 3: Manual Build
 
 For complete control over the process:
 
@@ -80,10 +92,6 @@ cd omarchy-arm64-vm
 # Follow the comprehensive build guide
 open docs/BUILD-VM.md
 ```
-
-### Option 3: Pre-built VM
-
-Not available due to size (~87GB exceeds GitHub limits). Use installer instead!
 
 ### Option 2: Build from Scripts
 
