@@ -55,9 +55,9 @@ Done! ARMarchy is running.
 | Setting | Value |
 |---------|-------|
 | Hostname | `armarchy` |
-| Username | `omarchy` |
+| Username | `armarchy` |
 | Password | `armarchy` |
-| Timezone | `America/New_York` |
+| Timezone | `America/Los_Angeles` (Cupertino) |
 | Disk | `/dev/vda` |
 
 ## Customization

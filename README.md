@@ -20,11 +20,11 @@ Complete [Omarchy](https://github.com/basecamp/omarchy) environment on Arch Linu
 
 ```bash
 # SSH into VM
-ssh omarchy@192.168.64.6
-# Password: omarchy
+ssh armarchy@192.168.64.6
+# Password: armarchy
 
-# Start Omarchy environment
-./start-omarchy.sh
+# Start ARMarchy environment
+./start-armarchy.sh
 ```
 
 The display will activate in the UTM window showing Hyprland with waybar.

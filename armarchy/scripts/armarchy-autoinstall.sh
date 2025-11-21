@@ -10,9 +10,9 @@ set -e
 
 # Configuration - edit these if needed
 HOSTNAME="${ARMARCHY_HOSTNAME:-armarchy}"
-USERNAME="${ARMARCHY_USER:-omarchy}"
+USERNAME="${ARMARCHY_USER:-armarchy}"
 PASSWORD="${ARMARCHY_PASS:-armarchy}"
-TIMEZONE="${ARMARCHY_TZ:-America/New_York}"
+TIMEZONE="${ARMARCHY_TZ:-America/Los_Angeles}"
 LOCALE="en_US.UTF-8"
 DISK="/dev/vda"  # Change if your disk is different
 
