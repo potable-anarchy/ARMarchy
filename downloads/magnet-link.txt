@@ -1,0 +1,1 @@
+magnet:?xt=urn:btih:73bc425e28577553862611adcb558625874f8c98&dn=omarchy-arm64-vm-v1.0.0&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://open.tracker.cl:1337/announce&tr=udp://tracker.torrent.eu.org:451/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://tracker.moeking.me:6969/announce&tr=udp://opentracker.i2p.rocks:6969/announce

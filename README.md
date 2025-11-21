@@ -62,7 +62,22 @@ The display will activate in the UTM window showing Hyprland with waybar.
 
 ## ⚡ Installation
 
-### Option 1: Prebuilt VM (Torrent) 🆕
+### Option 1: Automatic ISO Install ⭐ NEW
+
+**Fully automated, zero-interaction installation (35-50 min)**
+
+```bash
+# 1. Download Archboot ISO (284 MB)
+curl -O https://release.archboot.com/aarch64/latest/iso/archboot-2025.11.21-02.06-6.17.8-1-aarch64-ARCH-latest-aarch64.iso
+
+# 2. Create VM in UTM (use downloaded ISO)
+# 3. Boot VM and run:
+curl -sL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/armarchy/scripts/armarchy-autoinstall.sh | bash
+```
+
+See **[Automatic Installation Guide](armarchy/AUTO-INSTALL.md)** for details.
+
+### Option 2: Prebuilt VM (Torrent)
 
 Download the ready-to-use ARMarchy VM via BitTorrent (13GB):
 
@@ -80,20 +95,6 @@ Or download the [.torrent file](omarchy-arm64-vm-v1.0.0.torrent)
 - ✅ Just download, open in UTM, and start!
 
 See **[Torrent Download Guide](TORRENT-DOWNLOAD.md)** for detailed instructions.
-
-### Option 2: One-Command Installer
-
-Build your own ARMarchy VM automatically:
-
-```bash
-curl -O https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/installer/install-omarchy-vm.sh
-chmod +x install-omarchy-vm.sh
-./install-omarchy-vm.sh
-```
-
-**Time:** 5-10 minutes for VM creation, then 1-2 hours for OS installation
-
-See [Installer Documentation](installer/README.md) for details.
 
 ### Option 3: Manual Build
 
