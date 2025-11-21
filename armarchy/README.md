@@ -36,9 +36,19 @@ magnet:?xt=urn:btih:b8edadd5b6293ee2e72194cd9d4ff008d5a90b2f&dn=armarchy-v1.0.0
 
 Or download: [armarchy-v1.0.0.torrent](../omarchy-arm64-vm-v1.0.0.torrent)
 
-### ISO Installer (Coming Soon)
+### ISO Installer
 
-Install ARMarchy from scratch using our custom ARM64 installer.
+Install ARMarchy from scratch using Archboot ARM64 ISO:
+
+**Quick Install:** [QUICK-ISO-INSTALL.md](QUICK-ISO-INSTALL.md)  
+**Full Guide:** [docs/INSTALL-FROM-ISO.md](docs/INSTALL-FROM-ISO.md)
+
+**Download ISO (284 MB):**
+```bash
+curl -O https://release.archboot.com/aarch64/latest/iso/archboot-2025.11.21-02.06-6.17.8-1-aarch64-ARCH-latest-aarch64.iso
+```
+
+**Installation time:** ~45-60 minutes
 
 ## Quick Start
 
