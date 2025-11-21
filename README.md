@@ -1,8 +1,20 @@
-# Omarchy ARM64 VM
+# ARMarchy Linux
 
-Complete [Omarchy Linux](https://github.com/basecamp/omarchy) environment running on ARM64 for Apple Silicon Macs via UTM.
+**ARM64 Linux Distribution for Apple Silicon Macs**
 
-![Omarchy ARM64 Screenshot](docs/screenshot3.png)
+Complete [Omarchy](https://github.com/basecamp/omarchy) environment on Arch Linux ARM, optimized for M1/M2/M3/M4 Macs.
+
+![ARMarchy Screenshot](docs/screenshot3.png)
+
+```
+    _    ____  __  __                  _          
+   / \  |  _ \|  \/  | __ _ _ __ ___| |__  _   _ 
+  / _ \ | |_) | |\/| |/ _` | '__/ __| '_ \| | | |
+ / ___ \|  _ <| |  | | (_| | | | (__| | | | |_| |
+/_/   \_\_| \_\_|  |_|\__,_|_|  \___|_| |_|\__, |
+                                           |___/ 
+          ARM64 + Omarchy = ARMarchy
+```
 
 ## Quick Start
 
@@ -45,12 +57,14 @@ The display will activate in the UTM window showing Hyprland with waybar.
 - **[Display Configuration](docs/configure-utm-display.md)** - Fix display issues
 - **[Resize Disk](docs/RESIZE-DISK-INSTRUCTIONS.md)** - Expand VM storage
 - **[Upgrade Strategy](docs/careful-upgrade-strategy.md)** - Safe system updates
+- **[ISO Build Guide](armarchy/docs/ISO-BUILD.md)** - Build ARMarchy installation ISO
+- **[Shrink VM](docs/SHRINK-VM.md)** - Reduce VM size for distribution
 
 ## ⚡ Installation
 
 ### Option 1: Prebuilt VM (Torrent) 🆕
 
-Download the ready-to-use VM via BitTorrent (13GB):
+Download the ready-to-use ARMarchy VM via BitTorrent (13GB):
 
 **Magnet Link:**
 ```
@@ -60,7 +74,8 @@ magnet:?xt=urn:btih:b8edadd5b6293ee2e72194cd9d4ff008d5a90b2f&dn=omarchy-arm64-vm
 Or download the [.torrent file](omarchy-arm64-vm-v1.0.0.torrent)
 
 **What you get:**
-- ✅ Complete Omarchy environment ready to use
+- ✅ Complete ARMarchy environment ready to use
+- ✅ All Omarchy configurations pre-installed
 - ✅ No installation or building required
 - ✅ Just download, open in UTM, and start!
 
@@ -68,7 +83,7 @@ See **[Torrent Download Guide](TORRENT-DOWNLOAD.md)** for detailed instructions.
 
 ### Option 2: One-Command Installer
 
-Build your own VM automatically:
+Build your own ARMarchy VM automatically:
 
 ```bash
 curl -O https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/installer/install-omarchy-vm.sh
@@ -82,7 +97,7 @@ See [Installer Documentation](installer/README.md) for details.
 
 ### Option 3: Manual Build
 
-For complete control over the process:
+For complete control over the ARMarchy build process:
 
 ```bash
 # Clone this repository
@@ -92,24 +107,6 @@ cd omarchy-arm64-vm
 # Follow the comprehensive build guide
 open docs/BUILD-VM.md
 ```
-
-### Option 2: Build from Scripts
-
-```bash
-# Clone repository
-git clone https://github.com/potable-anarchy/omarchy-arm64-vm.git
-cd omarchy-arm64-vm
-
-# Build VM (requires UTM installed)
-./scripts/build-archlinux-vm.sh
-
-# Setup Omarchy inside VM
-./scripts/setup-vm.sh
-```
-
-### Option 3: Manual Installation
-
-Follow the detailed guides in `docs/` to build from scratch.
 
 ## 🎹 Keybindings (Omarchy Defaults)
 
@@ -128,8 +125,13 @@ Follow the detailed guides in `docs/` to build from scratch.
 
 ```
 omarchy-arm64-vm/
-├── docs/              # Documentation
-├── scripts/           # Build and setup scripts
+├── armarchy/          # ARMarchy distribution files
+│   ├── scripts/      # First-boot setup, ISO builder
+│   ├── docs/         # ARMarchy-specific documentation
+│   └── README.md     # ARMarchy distribution overview
+├── docs/              # Build and setup documentation
+├── scripts/           # VM build and automation scripts
+├── installer/         # One-command installer
 ├── examples/          # Configuration examples
 ├── downloads/         # VM images and ISOs (gitignored)
 ├── README.md          # This file
@@ -140,11 +142,11 @@ omarchy-arm64-vm/
 
 ## 🏗️ Architecture Notes
 
-This is **not** a standard Omarchy installation - it's an adaptation for ARM64:
+ARMarchy is built on Arch Linux ARM with complete Omarchy configurations, optimized for Apple Silicon:
 
-- ❌ Cannot run official Omarchy installer (x86_64 only)
-- ✅ All configurations work perfectly
+- ✅ All Omarchy configurations work perfectly
 - ✅ Most applications available on ARM64
+- ✅ Native ARM64 performance (no emulation)
 - ⚠️ Some x86_64-only apps excluded (1Password, Steam, etc.)
 
 ### Differences from x86_64 Omarchy
@@ -153,6 +155,7 @@ This is **not** a standard Omarchy installation - it's an adaptation for ARM64:
 2. **No Limine/Btrfs** - Using standard ext4 + boot
 3. **Manual app launch** - startup script instead of autostart
 4. **ARM64 package availability** - Some apps unavailable
+5. **Hypervisor optimization** - First-boot setup detects and optimizes for UTM/Parallels/VMware
 
 ### GPU Performance
 
@@ -191,11 +194,13 @@ Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ### Areas for Contribution
 
-- **Installer Scripts** - Automated VM building
-- **Performance Improvements** - GPU optimization
-- **Documentation** - Setup guides, troubleshooting
+- **ISO Installer** - Build and test ARMarchy installation ISO
+- **Hypervisor Support** - Improve UTM/Parallels/VMware detection and optimization
+- **Performance Improvements** - GPU optimization, rendering performance
+- **Documentation** - Setup guides, troubleshooting, hypervisor-specific tips
 - **Package Updates** - Keep dependencies current
 - **Bug Fixes** - Display issues, app compatibility
+- **ARM64 Ports** - Help port missing x86_64-only applications
 
 ## 📋 System Requirements
 
@@ -218,5 +223,6 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
+**ARMarchy Linux** - ARM64 + Omarchy = ARMarchy  
 **Status:** Production ready ✅  
-**Last Updated:** November 19, 2025
+**Last Updated:** November 20, 2025
