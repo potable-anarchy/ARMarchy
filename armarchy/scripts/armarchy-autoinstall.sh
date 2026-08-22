@@ -3,7 +3,7 @@
 # ARMarchy Fully Automatic Installer
 # Run this from the Archboot ISO to install ARMarchy with zero interaction
 #
-# Usage: curl -sL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/armarchy/scripts/armarchy-autoinstall.sh | bash
+# Usage: curl -sL https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/armarchy/scripts/armarchy-autoinstall.sh | bash
 #
 
 set -e
@@ -38,6 +38,16 @@ echo "This will ERASE $DISK and install ARMarchy."
 echo "Press Ctrl+C within 10 seconds to cancel..."
 echo ""
 sleep 10
+
+#######################################
+# Ensure install tools are present
+#######################################
+# The Archboot ISO is a minimal recovery environment and does not ship parted,
+# pacstrap/arch-chroot/genfstab, or the mkfs tools in PATH by default. Pull them
+# from the (already-configured, online) live-environment pacman before we start.
+
+echo "[0/10] Installing partitioning/install tools..."
+pacman -Sy --noconfirm --needed parted arch-install-scripts dosfstools e2fsprogs
 
 #######################################
 # Partition and Format
@@ -293,7 +303,7 @@ Keybindings:
   SUPER + M       : Exit
 
 Documentation:
-  https://github.com/potable-anarchy/omarchy-arm64-vm
+  https://github.com/potable-anarchy/ARMarchy
 
 Omarchy configs are in: ~/omarchy
 READMEEOF
@@ -322,7 +332,7 @@ Welcome to ARMarchy Linux!
 To start the desktop environment:
   ./start-armarchy.sh
 
-Documentation: https://github.com/potable-anarchy/omarchy-arm64-vm
+Documentation: https://github.com/potable-anarchy/ARMarchy
 
 MOTDEOF
 

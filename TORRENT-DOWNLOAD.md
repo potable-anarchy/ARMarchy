@@ -16,7 +16,7 @@ magnet:?xt=urn:btih:b8edadd5b6293ee2e72194cd9d4ff008d5a90b2f&dn=omarchy-arm64-vm
 
 Download the `.torrent` file and open it with your torrent client:
 
-**[Download omarchy-arm64-vm-v1.0.0.torrent](https://github.com/potable-anarchy/omarchy-arm64-vm/raw/main/omarchy-arm64-vm-v1.0.0.torrent)**
+**[Download omarchy-arm64-vm-v1.0.0.torrent](https://github.com/potable-anarchy/ARMarchy/raw/main/omarchy-arm64-vm-v1.0.0.torrent)**
 
 ## VM Details
 
@@ -143,8 +143,8 @@ Complete Omarchy environment with:
 
 ## Support
 
-- **GitHub Issues:** [Report problems](https://github.com/potable-anarchy/omarchy-arm64-vm/issues)
-- **Discussions:** [Ask questions](https://github.com/potable-anarchy/omarchy-arm64-vm/discussions)
+- **GitHub Issues:** [Report problems](https://github.com/potable-anarchy/ARMarchy/issues)
+- **Discussions:** [Ask questions](https://github.com/potable-anarchy/ARMarchy/discussions)
 - **Documentation:** [Browse docs](docs/)
 
 ## License

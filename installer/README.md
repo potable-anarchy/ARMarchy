@@ -23,7 +23,7 @@ This installer automates:
 
 ```bash
 # Download and run the installer
-curl -O https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/installer/install-omarchy-vm.sh
+curl -O https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/installer/install-omarchy-vm.sh
 chmod +x install-omarchy-vm.sh
 ./install-omarchy-vm.sh
 ```
@@ -49,10 +49,10 @@ Once you have a basic Arch Linux installation:
 
 ```bash
 # Install all packages and configure system
-curl -sSL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/scripts/setup-vm.sh | bash
+curl -sSL https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/scripts/setup-vm.sh | bash
 
 # Install Omarchy configuration (as your user, not root)
-curl -sSL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/scripts/sync-full-omarchy.sh | bash
+curl -sSL https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/scripts/sync-full-omarchy.sh | bash
 ```
 
 ## VM Configuration
@@ -141,7 +141,7 @@ Planned improvements:
 
 ## Support
 
-- **Issues:** https://github.com/potable-anarchy/omarchy-arm64-vm/issues
+- **Issues:** https://github.com/potable-anarchy/ARMarchy/issues
 - **Discussions:** Use GitHub Discussions
 - **Documentation:** [docs/](../docs/)
 

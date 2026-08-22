@@ -44,14 +44,14 @@ Once you have a basic Arch Linux installation:
 
 ```bash
 # Clone this repository on your Mac
-git clone https://github.com/potable-anarchy/omarchy-arm64-vm.git
-cd omarchy-arm64-vm
+git clone https://github.com/potable-anarchy/ARMarchy.git
+cd ARMarchy
 
 # SSH into the VM (after setting up SSH)
 ssh root@<vm-ip>
 
 # Run the setup script
-curl -sSL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/scripts/setup-vm.sh | bash
+curl -sSL https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/scripts/setup-vm.sh | bash
 ```
 
 ### Step 4: Install Omarchy Configuration
@@ -61,7 +61,7 @@ curl -sSL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/mai
 ssh omarchy@<vm-ip>
 
 # Sync Omarchy configs
-curl -sSL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/scripts/sync-full-omarchy.sh | bash
+curl -sSL https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/scripts/sync-full-omarchy.sh | bash
 ```
 
 ## Manual Build Method
@@ -173,7 +173,7 @@ Found a way to improve the build process? See [CONTRIBUTING.md](../CONTRIBUTING.
 
 ## Support
 
-- **Issues:** https://github.com/potable-anarchy/omarchy-arm64-vm/issues
+- **Issues:** https://github.com/potable-anarchy/ARMarchy/issues
 - **Discussions:** Use GitHub Discussions for questions
 - **Omarchy Docs:** https://github.com/basecamp/omarchy
 

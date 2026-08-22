@@ -45,7 +45,9 @@ Install ARMarchy from scratch using Archboot ARM64 ISO:
 
 **Download ISO (284 MB):**
 ```bash
-curl -O https://release.archboot.com/aarch64/latest/iso/archboot-2025.11.21-02.06-6.17.8-1-aarch64-ARCH-latest-aarch64.iso
+# Auto-resolve the current Archboot ARM64 ISO (the filename rotates on each release)
+ISO=$(curl -s https://release.archboot.com/aarch64/latest/iso/ | grep -oE 'archboot-[^"]*-aarch64-ARCH-latest-aarch64\.iso' | sort -u | head -1)
+curl -O "https://release.archboot.com/aarch64/latest/iso/$ISO"
 ```
 
 **Installation time:** ~45-60 minutes

@@ -68,11 +68,13 @@ The display will activate in the UTM window showing Hyprland with waybar.
 
 ```bash
 # 1. Download Archboot ISO (284 MB)
-curl -O https://release.archboot.com/aarch64/latest/iso/archboot-2025.11.21-02.06-6.17.8-1-aarch64-ARCH-latest-aarch64.iso
+# Auto-resolve the current Archboot ARM64 ISO (the filename rotates on each release)
+ISO=$(curl -s https://release.archboot.com/aarch64/latest/iso/ | grep -oE 'archboot-[^"]*-aarch64-ARCH-latest-aarch64\.iso' | sort -u | head -1)
+curl -O "https://release.archboot.com/aarch64/latest/iso/$ISO"
 
 # 2. Create VM in UTM (use downloaded ISO)
 # 3. Boot VM and run:
-curl -sL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/armarchy/scripts/armarchy-autoinstall.sh | bash
+curl -sL https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/armarchy/scripts/armarchy-autoinstall.sh | bash
 ```
 
 See **[Automatic Installation Guide](armarchy/AUTO-INSTALL.md)** for details.
@@ -102,8 +104,8 @@ For complete control over the ARMarchy build process:
 
 ```bash
 # Clone this repository
-git clone https://github.com/potable-anarchy/omarchy-arm64-vm.git
-cd omarchy-arm64-vm
+git clone https://github.com/potable-anarchy/ARMarchy.git
+cd ARMarchy
 
 # Follow the comprehensive build guide
 open docs/BUILD-VM.md
@@ -125,7 +127,7 @@ open docs/BUILD-VM.md
 ## 📁 Project Structure
 
 ```
-omarchy-arm64-vm/
+ARMarchy/
 ├── armarchy/          # ARMarchy distribution files
 │   ├── scripts/      # First-boot setup, ISO builder
 │   ├── docs/         # ARMarchy-specific documentation

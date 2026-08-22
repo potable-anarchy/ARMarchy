@@ -49,7 +49,7 @@ The VM disk is only 10GB and is 82% full. To install the remaining packages, you
 
 3. **Resize the disk:**
    ```bash
-   cd /Users/brad/code/omarchy-arm64-vm/downloads/ArchLinux.utm/Data
+   cd /Users/brad/code/ARMarchy/downloads/ArchLinux.utm/Data
    qemu-img resize BB208CBD-BFB4-4895-9542-48527C9E5473.qcow2 50G
    ```
 

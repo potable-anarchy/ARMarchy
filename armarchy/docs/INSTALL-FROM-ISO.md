@@ -4,7 +4,7 @@ This guide explains how to install ARMarchy Linux using the Archboot ISO.
 
 ## What You'll Need
 
-- **Archboot ISO**: `archboot-2025.11.21-02.06-6.17.8-1-aarch64-ARCH-latest-aarch64.iso` (284 MB)
+- **Archboot ISO**: `archboot-2026.08.20-02.07-7.2.0-1-aarch64-ARCH-latest-aarch64.iso` (284 MB)
 - **Download URL**: https://release.archboot.com/aarch64/latest/iso/
 - **UTM** or other ARM64 hypervisor (Parallels, VMware)
 - **Disk Space**: 20GB minimum, 40GB+ recommended
@@ -71,7 +71,7 @@ mount /dev/vda2 /mnt  # Adjust partition number if needed
 arch-chroot /mnt
 
 # Download ARMarchy installer
-curl -O https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/armarchy/scripts/install-armarchy.sh
+curl -O https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/armarchy/scripts/install-armarchy.sh
 chmod +x install-armarchy.sh
 
 # Run ARMarchy installer
@@ -248,4 +248,4 @@ Then manually copy configurations from the Omarchy repo.
 ---
 
 **ARMarchy Linux** - ARM64 + Omarchy = ARMarchy  
-For support, visit: https://github.com/potable-anarchy/omarchy-arm64-vm/issues
+For support, visit: https://github.com/potable-anarchy/ARMarchy/issues

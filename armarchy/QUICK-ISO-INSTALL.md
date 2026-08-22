@@ -5,7 +5,9 @@
 ## Download ISO
 
 ```bash
-curl -O https://release.archboot.com/aarch64/latest/iso/archboot-2025.11.21-02.06-6.17.8-1-aarch64-ARCH-latest-aarch64.iso
+# Auto-resolve the current Archboot ARM64 ISO (the filename rotates on each release)
+ISO=$(curl -s https://release.archboot.com/aarch64/latest/iso/ | grep -oE 'archboot-[^"]*-aarch64-ARCH-latest-aarch64\.iso' | sort -u | head -1)
+curl -O "https://release.archboot.com/aarch64/latest/iso/$ISO"
 ```
 
 Size: 284 MB
@@ -34,7 +36,7 @@ Set hostname: `armarchy`, create user: `omarchy`
 ```bash
 mount /dev/vda2 /mnt
 arch-chroot /mnt
-curl -O https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/armarchy/scripts/install-armarchy.sh
+curl -O https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/armarchy/scripts/install-armarchy.sh
 chmod +x install-armarchy.sh
 ./install-armarchy.sh
 exit

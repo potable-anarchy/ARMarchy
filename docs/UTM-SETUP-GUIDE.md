@@ -9,7 +9,7 @@
 ## Step 2: Boot Configuration
 
 - **Boot ISO Image**: Browse and select the downloaded Archboot ISO:
-  - `downloads/archboot-2025.11.16-02.08-6.17.8-1-aarch64-ARCH-latest-aarch64.iso`
+  - `downloads/archboot-2026.08.20-02.07-7.2.0-1-aarch64-ARCH-latest-aarch64.iso`
 - Click **Continue**
 
 ## Step 3: Hardware Configuration

@@ -22,7 +22,7 @@ VM_CPUS=4
 VM_DISK_SIZE=100  # GB
 UTM_DIR="${HOME}/Library/Containers/com.utmapp.UTM/Data/Documents"
 ARCH_ISO_URL="https://geo.mirror.pkgbuild.com/images/latest/Arch-Linux-aarch64-latest.iso"
-REPO_URL="https://github.com/potable-anarchy/omarchy-arm64-vm.git"
+REPO_URL="https://github.com/potable-anarchy/ARMarchy.git"
 
 # Functions
 log_info() {
@@ -223,16 +223,16 @@ ${BLUE}Next Steps:${NC}
 3. After basic installation, run the automated setup:
 
    ${YELLOW}# Inside the VM:${NC}
-   curl -sSL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/scripts/setup-vm.sh | bash
+   curl -sSL https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/scripts/setup-vm.sh | bash
 
 4. Install Omarchy configuration:
 
    ${YELLOW}# As your user (not root):${NC}
-   curl -sSL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/scripts/sync-full-omarchy.sh | bash
+   curl -sSL https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/scripts/sync-full-omarchy.sh | bash
 
 ${BLUE}Documentation:${NC}
-- Complete Guide: https://github.com/potable-anarchy/omarchy-arm64-vm/blob/main/docs/BUILD-VM.md
-- Quick Start: https://github.com/potable-anarchy/omarchy-arm64-vm/blob/main/docs/QUICKSTART.md
+- Complete Guide: https://github.com/potable-anarchy/ARMarchy/blob/main/docs/BUILD-VM.md
+- Quick Start: https://github.com/potable-anarchy/ARMarchy/blob/main/docs/QUICKSTART.md
 
 ${GREEN}═══════════════════════════════════════════════════════════════${NC}
 

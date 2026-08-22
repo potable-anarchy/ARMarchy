@@ -7,7 +7,9 @@
 ### 1. Download Archboot ISO (284 MB)
 
 ```bash
-curl -O https://release.archboot.com/aarch64/latest/iso/archboot-2025.11.21-02.06-6.17.8-1-aarch64-ARCH-latest-aarch64.iso
+# Auto-resolve the current Archboot ARM64 ISO (the filename rotates on each release)
+ISO=$(curl -s https://release.archboot.com/aarch64/latest/iso/ | grep -oE 'archboot-[^"]*-aarch64-ARCH-latest-aarch64\.iso' | sort -u | head -1)
+curl -O "https://release.archboot.com/aarch64/latest/iso/$ISO"
 ```
 
 ### 2. Create VM in UTM
@@ -24,7 +26,7 @@ curl -O https://release.archboot.com/aarch64/latest/iso/archboot-2025.11.21-02.0
 Boot from ISO, then run this single command:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/armarchy/scripts/armarchy-autoinstall.sh | bash
+curl -sL https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/armarchy/scripts/armarchy-autoinstall.sh | bash
 ```
 
 ### 4. Wait
@@ -70,7 +72,7 @@ export ARMARCHY_USER="myuser"
 export ARMARCHY_PASS="mypassword"
 export ARMARCHY_TZ="Europe/London"
 
-curl -sL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/armarchy/scripts/armarchy-autoinstall.sh | bash
+curl -sL https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/armarchy/scripts/armarchy-autoinstall.sh | bash
 ```
 
 ## What Gets Installed
@@ -115,7 +117,7 @@ If your disk isn't `/dev/vda`:
 lsblk
 
 # Download and edit script
-curl -O https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/armarchy/scripts/armarchy-autoinstall.sh
+curl -O https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/armarchy/scripts/armarchy-autoinstall.sh
 nano armarchy-autoinstall.sh  # Change DISK="/dev/vda" to your disk
 bash armarchy-autoinstall.sh
 ```

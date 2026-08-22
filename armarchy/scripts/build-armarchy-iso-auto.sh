@@ -10,7 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ARMARCHY_ROOT="$(dirname "$SCRIPT_DIR")"
 WORK_DIR="/tmp/armarchy-iso-build"
 ISO_DIR="$ARMARCHY_ROOT/../downloads"
-BASE_ISO="archboot-2025.11.21-02.06-6.17.8-1-aarch64-ARCH-latest-aarch64.iso"
+BASE_ISO="archboot-2026.08.20-02.07-7.2.0-1-aarch64-ARCH-latest-aarch64.iso"
 OUTPUT_ISO="armarchy-linux-v1.1.0-aarch64-auto.iso"
 
 echo "=================================="

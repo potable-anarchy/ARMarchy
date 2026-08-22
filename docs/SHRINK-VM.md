@@ -24,10 +24,10 @@ Run our cleanup script inside the VM:
 ssh omarchy@192.168.64.6
 
 # Download and run cleanup script
-curl -sSL https://raw.githubusercontent.com/potable-anarchy/omarchy-arm64-vm/main/scripts/shrink-vm.sh | bash
+curl -sSL https://raw.githubusercontent.com/potable-anarchy/ARMarchy/main/scripts/shrink-vm.sh | bash
 
 # Or if repo is cloned:
-cd omarchy-arm64-vm
+cd ARMarchy
 ./scripts/shrink-vm.sh
 ```
 
